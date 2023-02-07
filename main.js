@@ -6,9 +6,20 @@ const cardExpMonth = document.querySelector(".exp__month");
 const cardExpYear = document.querySelector(".exp__year");
 const cardCvc = document.querySelector(".card__cvc");
 
+const completedTab = document.querySelector(".completed__tab");
+
 form.addEventListener("submit", (ev) => {
     ev.preventDefault();
-    if (validateForm()) {}
+
+    if (validateForm()) {
+        completedTab.classList.remove("hide");
+        let submitBtn = document.querySelector(".submit__btn");
+        document.querySelectorAll("#card__form>*").forEach((child) => {
+            if (child !== completedTab && child !== submitBtn) {
+                form.removeChild(child);
+            }
+        });
+    }
 });
 
 function validateForm() {
@@ -73,7 +84,7 @@ function validateCardExpMonth() {
         setError(input, "Wrong format");
         return false;
     }
-    if (!value.match(/^[0-1]{1}[1-9]{1}$/)) {
+    if (!value.match(/^[0-1]{1}[0-9]{1}$/)) {
         setError(input, "Wrong format");
         return false;
     }
